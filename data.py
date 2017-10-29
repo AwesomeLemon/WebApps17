@@ -50,16 +50,23 @@ def addUserProject(user_name, project_key):
     if user is None:
         return None
     up.user_key = user.key()
-    up.project_key = project_key
+    up.project_key = Project.get(project_key)
     up.put()
     return up.key()
 
 def deleteUserProject(user_key, project_key):
     query = UserProject.all()
-    query.filter('user_key = ', user_key).filter('project_key = ', project_key)
-    query.get().key.delete()
+    query.filter('user_key = ', user_key).filter('project_key = ', Project.get(project_key))
+    project = query.get()
+    if project is None:
+        return None
+    # project.key().delete()
+    db.delete(project.key())
+    return True
 
-def getUserProjects(user_key):
+def getUserProjects(user):
+    if user is None:
+        return []
     query = UserProject.all()
-    query.filter('user_key = ', user_key)
+    query.filter('user_key = ', user.key())
     return [user_project.project_key for user_project in query]

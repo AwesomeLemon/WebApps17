@@ -32,7 +32,7 @@ class MainPage(webapp2.RequestHandler):
             self.redirect('/login') 
         else: 
             template_values = {
-                'projects': data.getUserProjects(user.key()),
+                'projects': data.getUserProjects(user),
                 'allprojects': data.Project.all(),
                 'isAdmin': users.is_current_user_admin(),
                 'users': myusers.MyUser.all()
@@ -155,6 +155,15 @@ class AddUserProject(webapp2.RequestHandler):
             return
         self.response.out.write('OK')
 
+class DeleteUserProject(webapp2.RequestHandler):
+    def get(self):
+        project_key = self.request.get('project_key')
+        res = data.deleteUserProject(myusers.session(self).get_current_user().key(), project_key)
+        if res is None:
+            self.error(400)
+            return
+        self.response.out.write('OK')
+
 application = webapp2.WSGIApplication([('/', MainPage),
                                        ('/login', myusers.Login),
                                        ('/logout', myusers.DoLogout),
@@ -165,5 +174,6 @@ application = webapp2.WSGIApplication([('/', MainPage),
                                        ('/check_user_password/', CheckUserPassword),
                                        ('/get_user_password/', GetUserPassword),
                                        ('/update_curr_user_pass/', UpdateCurrUserPass),
-                                       ('/add_user_project/', AddUserProject)],
+                                       ('/add_user_project/', AddUserProject),
+                                       ('/delete_user_project/', DeleteUserProject)],
                                       debug=True)

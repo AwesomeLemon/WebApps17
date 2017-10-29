@@ -42,6 +42,36 @@ $(document).ready(function () {
 
     //
     //
+    // User's Projects Tab
+    //
+    //
+    $("#projects_table").find(".delete_user_project").click(function (e) {
+        e.preventDefault();
+        $(".edit_project").hide();
+        var $thisTr = $(this).parent().parent();
+
+        // get the values
+        var key = $thisTr.find("td.project_key").text();
+
+        jQuery.ajax({
+            url: '/delete_user_project/?project_key=' + key,
+            success: function (data) {
+                alert('Success!');
+                // if (data != "True") {
+                //     alert("Неверный старый пароль.");
+                //     return;
+                // }
+            },
+            async: false,
+            type: "get"
+        });
+
+        $thisTr.remove();
+    });
+
+
+    //
+    //
     //
     // Users Tab
     //
