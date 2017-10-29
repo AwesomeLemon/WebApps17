@@ -62,4 +62,4 @@ def deleteUserProject(user_key, project_key):
 def getUserProjects(user_key):
     query = UserProject.all()
     query.filter('user_key = ', user_key)
-    return query.fetch()
+    return [user_project.project_key for user_project in query]

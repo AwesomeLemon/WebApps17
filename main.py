@@ -32,7 +32,7 @@ class MainPage(webapp2.RequestHandler):
             self.redirect('/login') 
         else: 
             template_values = {
-                'projects': data.getProjectsList(user),
+                'projects': data.getUserProjects(user.key()),
                 'allprojects': data.Project.all(),
                 'isAdmin': users.is_current_user_admin(),
                 'users': myusers.MyUser.all()
