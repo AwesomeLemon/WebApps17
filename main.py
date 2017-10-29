@@ -35,7 +35,7 @@ class MainPage(webapp2.RequestHandler):
                 'projects': data.getProjectsList(user),
                 'allprojects': data.Project.all(),
                 'isAdmin': users.is_current_user_admin(),
-                'users': myusers.myuser.all()
+                'users': myusers.MyUser.all()
             }
             path = os.path.join(os.path.dirname(__file__), 'project.html')
             self.response.out.write(template.render(path, template_values))
@@ -70,7 +70,7 @@ class ObjectList(webapp2.RequestHandler):
             if not users.is_current_user_admin():
                 self.error(400)
                 return            
-            self.response.out.write(json_list(myusers.myuser.all(), ['name', 'email', 'active']))
+            self.response.out.write(json_list(myusers.MyUser.all(), ['name', 'email', 'active']))
             return
 
         self.response.out.write('ERROR: UNSUPPORTED OBJECT')
@@ -88,7 +88,7 @@ class ObjectAdd(webapp2.RequestHandler):
             email = self.request.get('email')
             #self.response.out.write(username)
             #return
-            chk = myusers.myuser.all().filter("username = ", username).get()
+            chk = myusers.MyUser.all().filter("username = ", username).get()
             if chk:
                 self.error(400)
                 return

@@ -20,25 +20,25 @@ $(document).ready(function () {
         $("#" + container_id).show();
 
     });
-
- // add project
-    $("#add_project").click(function (e) {
-        e.preventDefault();
-        var $thisTr = $(this).parent().parent();
-        project_name = $("#new_project_name").val();
-        $.post("/object_add/", {object_type: "project", project_name: project_name}, function (data) {
-            // var $newTr = $("#users_table").find(".user_template").clone(true, true);
-            // $newTr.find("td.user_key").text(data);
-            // $newTr.find("td.user_name").text(user_name);
-            // $newTr.find("td.user_email").text(user_email);
-            // $newTr.removeAttr("style").removeAttr("class");
-            // $newTr.prependTo("#users_table tbody");
-            
-            // $("#new_user_name").val("");
-            // $("#new_user_email").val("");
-        }).fail(function () {alert("Пользователь уже зарегистрирован.")});
-        
-    });
+ //
+ // // add project
+ //    $("#add_project").click(function (e) {
+ //        e.preventDefault();
+ //        var $thisTr = $(this).parent().parent();
+ //        project_name = $("#new_project_name").val();
+ //        $.post("/object_add/", {object_type: "project", project_name: project_name}, function (data) {
+ //            // var $newTr = $("#users_table").find(".user_template").clone(true, true);
+ //            // $newTr.find("td.user_key").text(data);
+ //            // $newTr.find("td.user_name").text(user_name);
+ //            // $newTr.find("td.user_email").text(user_email);
+ //            // $newTr.removeAttr("style").removeAttr("class");
+ //            // $newTr.prependTo("#users_table tbody");
+ //
+ //            // $("#new_user_name").val("");
+ //            // $("#new_user_email").val("");
+ //        }).fail(function () {alert("Пользователь уже зарегистрирован.")});
+ //
+ //    });
  
  
     //
@@ -184,7 +184,7 @@ $(document).ready(function () {
         e.preventDefault();
         var $thisTr = $(this).parent().parent();
         project_name = $("#new_project_name").val();
-        if (!project_name || project_name == "") {
+        if (!project_name || project_name === "") {
             alert("Имя проекта не может быть пустым!");
             return;
         }
@@ -317,6 +317,11 @@ function saveNewPassword(){
   });
 }
 
+function addUserProjectJs() {
+    var userName = $('#assigned_user_name').val();
+    var projectKey = $('')
+}
+
 function cancelNewPassword(){
 	$("#projects").trigger("click");
 }
@@ -372,7 +377,7 @@ function accountSave(elem){
         pass: pass
     }).fail(function () {
         alert("Не удалось обновить пароль.")
-    })
+    });
 
     userTr.find("td.user_email").text(email);
     userTr.find("td.user_active").text(active);
