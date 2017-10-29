@@ -145,14 +145,25 @@ class UpdateCurrUserPass(webapp2.RequestHandler):
         self.response.out.write('OK')
         return
 
+class AddUserProject(webapp2.RequestHandler):
+    def get(self):
+        user_name = self.request.get('user_name')
+        project_key = self.request.get('project_key')
+        res = data.addUserProject(user_name, project_key)
+        if res is None:
+            self.error(400)
+            return
+        self.response.out.write('OK')
+
 application = webapp2.WSGIApplication([('/', MainPage),
                                        ('/login', myusers.Login),
-                                       ('/logout', myusers.DoLogout), 
+                                       ('/logout', myusers.DoLogout),
                                        ('/admin', AdminLogin),
                                        ('/object_add/', ObjectAdd),
                                        ('/object_list/', ObjectList),
                                        ('/object_update/', ObjectUpdate),
                                        ('/check_user_password/', CheckUserPassword),
                                        ('/get_user_password/', GetUserPassword),
-                                       ('/update_curr_user_pass/', UpdateCurrUserPass)],
+                                       ('/update_curr_user_pass/', UpdateCurrUserPass),
+                                       ('/add_user_project/', AddUserProject)],
                                       debug=True)

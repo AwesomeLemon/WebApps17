@@ -147,10 +147,6 @@
                                         <a class="btn-small btn-warning edit_project" href="#" title="Редактировать">
                                             <i class="icon-pencil"></i></a>
                                     </td>
-                                    <!--<td>-->
-                                        <!--<input class="btn-mini" type="text" style="width:80%;"/>-->
-                                        <!--<a class="btn-small btn-success" href="#" title="Добавить в проекты пользователя"><i-->
-                                                <!--class="icon-plus"></i></a></td>-->
 
                                 </tr>
 
@@ -158,6 +154,7 @@
                                 <tr class="project_edit warning" style="display:none">
                                     <td class="allproject_key" style="display:none"></td>
                                     <td><input type="text" class="btn-mini allproject_name" style="width:80%;"></td>
+                                    </td>
                                     <td>
                                         <a class="btn-small btn-success accept_project_changes" href="#"
                                            title="Принять">
@@ -165,9 +162,12 @@
                                         <a class="btn-small btn-danger cancel_project_changes" href="#" title="Отмена">
                                             <i class="icon-remove"></i></a>
                                     </td>
-                                    <td>Логин пользователя
-                                        <input class="btn-mini" type="text" id="assigned_user_name" style="width:80%;"/>
-                                        <a class="btn-small btn-success" href="#" title="Добавить в проекты пользователя"><i
+                                    <td>
+                                        <input type="text" class="btn-mini assigned_user_name" style="width:80%;">
+                                    </td>
+                                    <td>
+                                        <a class="btn-small btn-success" href="#" id=
+                                                'assign_project_to_user' title="Добавить в проекты пользователя"><i
                                                 class="icon-plus"></i></a></td>
 
                                 </tr>
@@ -183,11 +183,6 @@
                                         <a class="btn-small btn-warning edit_project" href="#" title="Редактировать">
                                             <i class="icon-pencil"></i></a>
                                     </td>
-                                    <!--<td>-->
-                                        <!--<input class="btn-mini" id="assigned_user_name" type="text" style="width:80%;" />-->
-                                        <!--<a class="btn-small btn-success" href="#" id='add_project_to_user'-->
-                                           <!--title="Добавить в свои проекты"><i-->
-                                            <!--class="icon-plus"></i></a></td>-->
                                 </tr>
                                 {% endfor %}
 

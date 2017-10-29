@@ -46,7 +46,10 @@ class UserProject(db.Model):
 def addUserProject(user_name, project_key):
     up = UserProject()
     query = MyUser.all()
-    up.user_key = query.filter('name = ' + user_name).get().key
+    user = query.filter('username = ', user_name).get()
+    if user is None:
+        return None
+    up.user_key = user.key()
     up.project_key = project_key
     up.put()
     return up.key()

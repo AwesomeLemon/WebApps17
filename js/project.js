@@ -1,4 +1,3 @@
-
 function is_empty(obj) {
     if (!obj || obj == "" || obj == "None")
         return true;
@@ -20,27 +19,27 @@ $(document).ready(function () {
         $("#" + container_id).show();
 
     });
- //
- // // add project
- //    $("#add_project").click(function (e) {
- //        e.preventDefault();
- //        var $thisTr = $(this).parent().parent();
- //        project_name = $("#new_project_name").val();
- //        $.post("/object_add/", {object_type: "project", project_name: project_name}, function (data) {
- //            // var $newTr = $("#users_table").find(".user_template").clone(true, true);
- //            // $newTr.find("td.user_key").text(data);
- //            // $newTr.find("td.user_name").text(user_name);
- //            // $newTr.find("td.user_email").text(user_email);
- //            // $newTr.removeAttr("style").removeAttr("class");
- //            // $newTr.prependTo("#users_table tbody");
- //
- //            // $("#new_user_name").val("");
- //            // $("#new_user_email").val("");
- //        }).fail(function () {alert("Пользователь уже зарегистрирован.")});
- //
- //    });
- 
- 
+    //
+    // // add project
+    //    $("#add_project").click(function (e) {
+    //        e.preventDefault();
+    //        var $thisTr = $(this).parent().parent();
+    //        project_name = $("#new_project_name").val();
+    //        $.post("/object_add/", {object_type: "project", project_name: project_name}, function (data) {
+    //            // var $newTr = $("#users_table").find(".user_template").clone(true, true);
+    //            // $newTr.find("td.user_key").text(data);
+    //            // $newTr.find("td.user_name").text(user_name);
+    //            // $newTr.find("td.user_email").text(user_email);
+    //            // $newTr.removeAttr("style").removeAttr("class");
+    //            // $newTr.prependTo("#users_table tbody");
+    //
+    //            // $("#new_user_name").val("");
+    //            // $("#new_user_email").val("");
+    //        }).fail(function () {alert("Пользователь уже зарегистрирован.")});
+    //
+    //    });
+
+
     //
     //
     //
@@ -67,11 +66,13 @@ $(document).ready(function () {
             $newTr.find("td.user_email").text(user_email);
             $newTr.removeAttr("style").removeAttr("class");
             $newTr.prependTo("#users_table tbody");
-            
+
             $("#new_user_name").val("");
             $("#new_user_email").val("");
-        }).fail(function () {alert("Пользователь уже зарегистрирован.")});
-        
+        }).fail(function () {
+            alert("Пользователь уже зарегистрирован.")
+        });
+
     });
 
     //
@@ -80,26 +81,26 @@ $(document).ready(function () {
         e.preventDefault();
         $(".edit_user").hide();
         var $thisTr = $(this).parent().parent();
-        
+
         // get the values
         var key = $thisTr.find("td.user_key").text();
         var username = $thisTr.find("td.user_name").text();
         var email = $thisTr.find("td.user_email").text();
         var active = $thisTr.find("td.user_active").text();
-        
+
         // prepare the input form
-        var $form = $("#users_table").find(".user_edit").clone(true,true);
+        var $form = $("#users_table").find(".user_edit").clone(true, true);
         $form.find("td.user_key").text(key);
-		$form.find("td.user_name").text(username);
-		$form.find("input.user_email").val(email);
-		var $cb = $form.find("input.user_active");
+        $form.find("td.user_name").text(username);
+        $form.find("input.user_email").val(email);
+        var $cb = $form.find("input.user_active");
         if (active == "да") {
             $cb.prop('checked', true);
         } else {
             $cb.prop('checked', false);
         }
-		$form.removeAttr("style").removeClass("user_edit");
-        
+        $form.removeAttr("style").removeClass("user_edit");
+
         // insert the form instead of the object
         $form.insertAfter($thisTr);
         $thisTr.remove();
@@ -114,13 +115,13 @@ $(document).ready(function () {
         e.preventDefault();
         $(".edit_user").show();
         var $thisTr = $(this).parent().parent();
-        
+
         // get the values
         var key = $thisTr.find("td.user_key").text();
         var username = $thisTr.find("td.user_name").text();
         var email = $("#old_email").html();
         var active = $("#old_active").html();
-        
+
         // set the old values back
         var $newTr = $("#users_table").find(".user_template").clone(true, true);
         $newTr.find("td.user_key").text(key);
@@ -138,7 +139,7 @@ $(document).ready(function () {
         e.preventDefault();
         $(".edit_user").show();
         var $thisTr = $(this).parent().parent();
-        
+
         // get the values
         var key = $thisTr.find("td.user_key").text();
         var username = $thisTr.find("td.user_name").text();
@@ -148,7 +149,7 @@ $(document).ready(function () {
         if ($cb.prop('checked') == true) {
             active = "да";
         }
-        
+
         // post the new values to the server
         $.post("/object_update/", {
             object_type: "user",
@@ -167,9 +168,9 @@ $(document).ready(function () {
             $thisTr.remove();
         }).fail(function () {
             alert("Не удалось обновить объект.")
-        })        
+        })
     });
-    
+
     //
     //
     //
@@ -194,10 +195,12 @@ $(document).ready(function () {
             $newTr.find("td.allproject_name").text(project_name);
             $newTr.removeAttr("style").removeAttr("class");
             $newTr.prependTo("#allprojects_table tbody");
-            
+
             $("#new_project_name").val("");
-        }).fail(function () {alert("Не удалось добавить проект.")});
-        
+        }).fail(function () {
+            alert("Не удалось добавить проект.")
+        });
+
     });
 
     //
@@ -206,22 +209,49 @@ $(document).ready(function () {
         e.preventDefault();
         $(".edit_project").hide();
         var $thisTr = $(this).parent().parent();
-        
+
         // get the values
         var key = $thisTr.find("td.allproject_key").text();
         var name = $thisTr.find("td.allproject_name").text();
-        
+
         // prepare the input form
-        var $form = $("#allprojects_table").find(".project_edit").clone(true,true);
+        var $form = $("#allprojects_table").find(".project_edit").clone(true, true);
         $form.find("td.allproject_key").text(key);
-		$form.find("input.allproject_name").val(name);
-		$form.removeAttr("style").removeClass("project_edit");
-        
+        $form.find("input.allproject_name").val(name);
+        $form.find("#assigned_user_name").val(name);
+        console.log($form.find("#assigned_user_name").val());
+        var message = $form.find("#assigned_user_name").text();
+        console.log(message);
+        $form.removeAttr("style").removeClass("project_edit");
+
         // insert the form instead of the object
         $form.insertAfter($thisTr);
         $thisTr.remove();
+        console.log($form.find("#assigned_user_name").val());
+        console.log($("#assigned_user_name").val());
         // save old values for "cancel" action
         $("#old_projectname").html(name);
+    });
+
+    $('#assign_project_to_user').click(function (e) {
+        e.preventDefault();
+        // var userName = $(this).siblings('.assigned_user_name').text();
+        var $thisTr = $(this).parent().parent();
+        var userName = $thisTr.find('input.assigned_user_name').val();
+        var projectKey = $thisTr.find("td.allproject_key").text();
+
+        jQuery.ajax({
+            url: '/add_user_project/?user_name=' + userName + '&project_key=' + projectKey,
+            success: function (data) {
+                alert('Success!');
+                // if (data != "True") {
+                //     alert("Неверный старый пароль.");
+                //     return;
+                // }
+            },
+            async: false,
+            type: "get"
+        });
     });
 
     //
@@ -230,11 +260,11 @@ $(document).ready(function () {
         e.preventDefault();
         $(".edit_project").show();
         var $thisTr = $(this).parent().parent();
-        
+
         // get the values
         var key = $thisTr.find("td.allproject_key").text();
         var name = $("#old_projectname").html();
-        
+
         // set the old values back
         var $newTr = $("#allprojects_table").find(".project_template").clone(true, true);
         $newTr.find("td.allproject_key").text(key);
@@ -250,11 +280,11 @@ $(document).ready(function () {
         e.preventDefault();
         $(".edit_project").show();
         var $thisTr = $(this).parent().parent();
-        
+
         // get the values
         var key = $thisTr.find("td.allproject_key").text();
         var name = $thisTr.find("input.allproject_name").val();
-        
+
         // post the new values to the server
         $.post("/object_update/", {
             object_type: "project",
@@ -270,7 +300,7 @@ $(document).ready(function () {
             $thisTr.remove();
         }).fail(function () {
             alert("Не удалось обновить объект.")
-        })        
+        })
     });
 
     // after everything is loaded, display the page
@@ -283,51 +313,46 @@ $(document).ready(function () {
 //
 //
 
-function loadGame(link){
-	$("#game").load(link);
+function loadGame(link) {
+    $("#game").load(link);
 }
 
-function saveNewPassword(){
-  var oldPassword = $('#old_password_input').val();
-  var newPassword = $('#new_password_input').val();
-  var acceptPassword = $('#accept_password_input').val();
-  var isOldPasswordCorrect;
+function saveNewPassword() {
+    var oldPassword = $('#old_password_input').val();
+    var newPassword = $('#new_password_input').val();
+    var acceptPassword = $('#accept_password_input').val();
+    var isOldPasswordCorrect;
 
-  jQuery.ajax({
+    jQuery.ajax({
         url: '/check_user_password/?pass=' + oldPassword,
         success: function (data) {
-        if (data!="True") {
-            alert("Неверный старый пароль.");
-            return;
-        }
-    },
+            if (data != "True") {
+                alert("Неверный старый пароль.");
+                return;
+            }
+        },
         async: false,
         type: "get"
     });
 
-  if (newPassword!=acceptPassword) {
-      alert("Новый пароль и подтверждение не совпадают.");
-      return;
-  }
+    if (newPassword != acceptPassword) {
+        alert("Новый пароль и подтверждение не совпадают.");
+        return;
+    }
 
-  $.get( "/update_curr_user_pass/", {pass: newPassword}, function( data ) {
-    $('#old_password_input').val("");
-    $('#new_password_input').val("");
-    $('#accept_password_input').val("");
-  });
+    $.get("/update_curr_user_pass/", {pass: newPassword}, function (data) {
+        $('#old_password_input').val("");
+        $('#new_password_input').val("");
+        $('#accept_password_input').val("");
+    });
 }
 
-function addUserProjectJs() {
-    var userName = $('#assigned_user_name').val();
-    var projectKey = $('')
+function cancelNewPassword() {
+    $("#projects").trigger("click");
 }
 
-function cancelNewPassword(){
-	$("#projects").trigger("click");
-}
-
-function displayAccount(elem){
-	$(".nav#main_menu > li").removeClass("active");
+function displayAccount(elem) {
+    $(".nav#main_menu > li").removeClass("active");
     $(".inner").hide();
 
     var thisTr = $(elem).parent();
@@ -340,8 +365,8 @@ function displayAccount(elem){
 
     $("#account_name").text(name);
     $("#account_email_input").val(email);
-    $("#account_active_input").prop('checked', active=="да");
-    $.get( "/get_user_password/", {"key": key}, function( data ) {
+    $("#account_active_input").prop('checked', active == "да");
+    $.get("/get_user_password/", {"key": key}, function (data) {
         $("#account_password_input").val(data);
     });
 
@@ -349,7 +374,7 @@ function displayAccount(elem){
     $("#account_container").data("user", thisTr);
 }
 
-function accountSave(elem){
+function accountSave(elem) {
     var key = $("#account_container").data("user_key");
     var userTr = $("#account_container").data("user");
     var name = $("#account_name").text();
