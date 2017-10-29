@@ -16,6 +16,7 @@ import datetime
 import myusers
 from google.appengine.api import users
 
+
 def json_list(list, param_list):
     lst = []
     for pn in list:
@@ -25,12 +26,13 @@ def json_list(list, param_list):
         lst.append(d)
     return json.dumps(lst, separators=(',', ':'))
 
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        user = myusers.session(self).get_current_user() 
-        if (not user) and (not users.is_current_user_admin()): 
-            self.redirect('/login') 
-        else: 
+        user = myusers.session(self).get_current_user()
+        if (not user) and (not users.is_current_user_admin()):
+            self.redirect('/login')
+        else:
             template_values = {
                 'projects': data.getUserProjects(user),
                 'allprojects': data.Project.all(),
@@ -40,6 +42,7 @@ class MainPage(webapp2.RequestHandler):
             path = os.path.join(os.path.dirname(__file__), 'project.html')
             self.response.out.write(template.render(path, template_values))
 
+
 class AdminLogin(webapp2.RequestHandler):
     def get(self):
         if users.is_current_user_admin():
@@ -47,19 +50,22 @@ class AdminLogin(webapp2.RequestHandler):
         else:
             login_page = users.create_login_url('/')
             self.redirect(login_page)
-            
+
+
 class CheckUserPassword(webapp2.RequestHandler):
     def get(self):
         user = myusers.session(self).get_current_user()
         user_pass = self.request.get('pass')
         db_pass = user.password
-        self.response.out.write(str(user_pass==db_pass))
+        self.response.out.write(str(user_pass == db_pass))
         return
+
 
 class GetUserPassword(webapp2.RequestHandler):
     def get(self):
         key = self.request.get('key')
         self.response.out.write(myusers.getPassword(key))
+
 
 class ObjectList(webapp2.RequestHandler):
     def get(self):
@@ -69,7 +75,7 @@ class ObjectList(webapp2.RequestHandler):
         if object == 'user':
             if not users.is_current_user_admin():
                 self.error(400)
-                return            
+                return
             self.response.out.write(json_list(myusers.MyUser.all(), ['name', 'email', 'active']))
             return
 
@@ -79,15 +85,15 @@ class ObjectList(webapp2.RequestHandler):
 class ObjectAdd(webapp2.RequestHandler):
     def post(self):
         object_type = self.request.get("object_type")
-        
+
         if object_type == "user":
             if not users.is_current_user_admin():
                 self.error(400)
                 return
             username = self.request.get('username')
             email = self.request.get('email')
-            #self.response.out.write(username)
-            #return
+            # self.response.out.write(username)
+            # return
             chk = myusers.MyUser.all().filter("username = ", username).get()
             if chk:
                 self.error(400)
@@ -96,7 +102,7 @@ class ObjectAdd(webapp2.RequestHandler):
                 key = myusers.session(self).create_user(email, username, username)
                 self.response.out.write(str(key))
                 return
-                
+
         if object_type == 'project':
             if not users.is_current_user_admin():
                 self.error(400)
@@ -136,6 +142,7 @@ class ObjectUpdate(webapp2.RequestHandler):
 
         self.error(400)
 
+
 class UpdateCurrUserPass(webapp2.RequestHandler):
     def get(self):
         user = myusers.session(self).get_current_user()
@@ -144,6 +151,7 @@ class UpdateCurrUserPass(webapp2.RequestHandler):
         user.put()
         self.response.out.write('OK')
         return
+
 
 class AddUserProject(webapp2.RequestHandler):
     def get(self):
@@ -156,6 +164,7 @@ class AddUserProject(webapp2.RequestHandler):
             self.response.out.write(str(res))
         return
 
+
 class DeleteUserProject(webapp2.RequestHandler):
     def get(self):
         project_key = self.request.get('project_key')
@@ -164,6 +173,7 @@ class DeleteUserProject(webapp2.RequestHandler):
             self.error(400)
             return
         self.response.out.write('OK')
+
 
 application = webapp2.WSGIApplication([('/', MainPage),
                                        ('/login', myusers.Login),

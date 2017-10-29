@@ -249,16 +249,11 @@ $(document).ready(function () {
         $form.find("td.allproject_key").text(key);
         $form.find("input.allproject_name").val(name);
         $form.find("#assigned_user_name").val(name);
-        console.log($form.find("#assigned_user_name").val());
-        var message = $form.find("#assigned_user_name").text();
-        console.log(message);
         $form.removeAttr("style").removeClass("project_edit");
 
         // insert the form instead of the object
         $form.insertAfter($thisTr);
         $thisTr.remove();
-        console.log($form.find("#assigned_user_name").val());
-        console.log($("#assigned_user_name").val());
         // save old values for "cancel" action
         $("#old_projectname").html(name);
     });
