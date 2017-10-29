@@ -152,8 +152,9 @@ class AddUserProject(webapp2.RequestHandler):
         res = data.addUserProject(user_name, project_key)
         if res is None:
             self.error(400)
-            return
-        self.response.out.write('OK')
+        else:
+            self.response.out.write(str(res))
+        return
 
 class DeleteUserProject(webapp2.RequestHandler):
     def get(self):

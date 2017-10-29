@@ -62,7 +62,7 @@ $(document).ready(function () {
                 //     return;
                 // }
             },
-            async: false,
+            // async: false,
             type: "get"
         });
 
@@ -273,11 +273,12 @@ $(document).ready(function () {
         jQuery.ajax({
             url: '/add_user_project/?user_name=' + userName + '&project_key=' + projectKey,
             success: function (data) {
-                alert('Success!');
-                // if (data != "True") {
-                //     alert("Неверный старый пароль.");
-                //     return;
-                // }
+                if (data !== "True") {
+                    alert("У пользователя уже есть этот проект.");
+                }
+                else {
+                    alert('Успех!');
+                }
             },
             async: false,
             type: "get"
