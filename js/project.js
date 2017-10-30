@@ -45,6 +45,7 @@ $(document).ready(function () {
     // User's Projects Tab
     //
     //
+
     $("#projects_table").find(".delete_user_project").click(function (e) {
         e.preventDefault();
         $(".edit_project").hide();
@@ -56,13 +57,8 @@ $(document).ready(function () {
         jQuery.ajax({
             url: '/delete_user_project/?project_key=' + key,
             success: function (data) {
-                alert('Success!');
-                // if (data != "True") {
-                //     alert("Неверный старый пароль.");
-                //     return;
-                // }
+                alert('Проект удалён!');
             },
-            // async: false,
             type: "get"
         });
 
@@ -258,12 +254,11 @@ $(document).ready(function () {
         $("#old_projectname").html(name);
     });
 
+    //assign project to user
     $('#assign_project_to_user').click(function (e) {
         e.preventDefault();
-        // var userName = $(this).siblings('.assigned_user_name').text();
-        var $thisTr = $(this).parent().parent();
-        var userName = $thisTr.find('input.assigned_user_name').val();
-        var projectKey = $thisTr.find("td.allproject_key").text();
+        var userName = $(this).siblings('input.assigned_user_name').val();
+        var projectKey = $(this).parent().siblings("td.allproject_key").text();
 
         jQuery.ajax({
             url: '/add_user_project/?user_name=' + userName + '&project_key=' + projectKey,

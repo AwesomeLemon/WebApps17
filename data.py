@@ -74,7 +74,7 @@ def check_user_have_project(user, true_project_key):
 
 def deleteUserProject(user_key, project_key):
     query = UserProject.all()
-    query.filter('user_key = ', user_key).filter('project_key = ', project_key)
+    query.filter('user_key = ', user_key).filter('project_key = ', Project.get(project_key))
     user_project = query.get()
     if user_project is None:
         return None

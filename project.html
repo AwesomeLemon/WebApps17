@@ -70,7 +70,9 @@
                 <a class="brand" href="#" style="color:#0088cc">ServiceDesk</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav" id="main_menu">
+                        {% if not isAdmin %}
                         <li class="active"><a href="#" id="projects">Проекты пользователя</a></li>
+                        {% endif %}
                         {% if isAdmin %}
                         <li><a href="#" id="users">Пользователи</a></li>
                         <li><a href="#" id="allprojects">Все проекты</a></li>
